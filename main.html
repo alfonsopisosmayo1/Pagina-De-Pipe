@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti, mi vida 🌻🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #efd5ff, #c9a9f5, #9d6fe0);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- ESCENA GALÁCTICA (PANTALLA DE INICIO) --- */
+        #galaxy-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease, transform 1.5s ease, visibility 1.5s;
+        }
+
+        #galaxy-overlay.hidden {
+            opacity: 0;
+            transform: scale(1.5);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        /* Núcleo de la Galaxia */
+        .galaxy-core {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,105,180,0.4) 40%, rgba(138,43,226,0.1) 70%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: galaxyPulse 6s infinite ease-in-out;
+        }
+
+        @keyframes galaxyPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+
+        /* Estrellas dinámicas */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Contenido interactivo en la galaxia */
+        .galaxy-content {
+            position: relative;
+            z-index: 1001;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .galaxy-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ffe082;
+            text-shadow: 0 0 15px rgba(255, 224, 130, 0.8), 0 0 30px rgba(255, 105, 180, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .galaxy-btn {
+            background: linear-gradient(45deg, #ffb300, #ff8f00);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 179, 0, 0.6);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .galaxy-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 179, 0, 0.9);
+        }
+
+        /* --- MARCOS / ADORNOS LATERALES Y DE FONDO --- */
+        .decoration-side {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .left-side { left: 10px; }
+        .right-side { right: 10px; }
+
+        .side-heart {
+            font-size: 24px;
+            animation: pulseHeart 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ff5252;
+            font-size: 20px;
+            animation: floatUp 6s infinite linear;
+            opacity: 0.7;
+            z-index: 1;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        .sparkle {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: floatSparkle 4s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+            50% { transform: translateY(-20px) scale(1.4); opacity: 0.9; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #d48806;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+        }
+
+        p.instruction {
+            font-size: 1.05rem;
+            color: #795548;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(212, 136, 6, 0.15);
+            border: 1px solid #ffe082;
+        }
+
+        .sunflower-container {
+            position: relative;
+            width: 340px;
+            height: 435px;
+            margin-bottom: 5px;
+        }
+
+        .sunflower-wrapper {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+            z-index: 3;
+        }
+
+        .center-disc {
+            width: 118px;
+            height: 118px;
+            background:
+                radial-gradient(circle at 50% 40%, rgba(255,255,255,0.18), transparent 45%),
+                repeating-radial-gradient(circle at 50% 50%, #4e342e 0px, #4e342e 2px, #6d4c41 3px, #3e2723 4.5px);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            box-shadow: inset 0 0 18px rgba(0,0,0,0.85), 0 4px 10px rgba(0,0,0,0.35);
+            border: 6px solid #3e2723;
+        }
+
+        .sepal {
+            position: absolute;
+            width: 132px;
+            height: 132px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background: radial-gradient(circle at 50% 60%, #558b2f 0%, #33691e 60%, #2e7d32 100%);
+            border-radius: 50%;
+            box-shadow: inset 0 -8px 14px rgba(0,0,0,0.3);
+        }
+
+        .petal {
+            position: absolute;
+            width: 62px;
+            height: 128px;
+            background: radial-gradient(circle at 50% 18%, #fff9c4 0%, #ffe066 45%, #f9b800 80%, #e8a100 100%);
+            border-radius: 48% 48% 42% 42%;
+            transform-origin: bottom center;
+            top: 42px;
+            left: 139px;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            box-shadow: inset 0 -8px 14px rgba(180,120,0,0.45), 0 2px 5px rgba(0,0,0,0.18);
+            z-index: 2;
+        }
+
+        .petal:hover {
+            filter: brightness(1.05);
+        }
+
+        .petal.falling {
+            animation: fallPetal 1.3s forwards ease-in;
+        }
+
+        @keyframes fallPetal {
+            0% { transform: rotate(var(--rot)) translateY(0) scale(1); opacity: 1; }
+            100% { transform: rotate(calc(var(--rot) + 50deg)) translateY(280px) scale(0.6); opacity: 0; }
+        }
+
+        .stem-container {
+            position: absolute;
+            top: 242px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1; 
+        }
+
+        .stem {
+            width: 14px;
+            height: 182px;
+            background: linear-gradient(90deg, #33691e 0%, #7cb342 45%, #558b2f 80%, #2e7d32 100%);
+            border-radius: 8px;
+            box-shadow: inset -3px 0 5px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .leaf-left, .leaf-right {
+            position: absolute;
+            width: 64px;
+            height: 34px;
+            background: radial-gradient(circle at 65% 40%, #aed581 0%, #7cb342 45%, #558b2f 100%);
+            border-radius: 70% 10% 70% 10%;
+            top: 55px;
+            box-shadow: inset 0 0 8px rgba(30,60,10,0.35);
+        }
+        .leaf-left { left: -52px; transform: rotate(-30deg); }
+        .leaf-right { right: -52px; transform: scaleX(-1) rotate(-30deg); }
+
+        /* --- CORAZÓN PARA ABRIR LA CARTA --- */
+        .heart-btn {
+            position: fixed;
+            top: 22px;
+            right: 24px;
+            font-size: 42px;
+            cursor: pointer;
+            z-index: 900;
+            opacity: 0;
+            transform: scale(0) rotate(-20deg);
+            pointer-events: none;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            filter: drop-shadow(0 0 14px rgba(255, 82, 82, 0.9));
+            user-select: none;
+            animation: heartBeat 1.2s infinite ease-in-out;
+        }
+
+        .heart-btn.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            pointer-events: auto;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            10% { transform: scale(1.2) rotate(0deg); }
+            20% { transform: scale(0.95) rotate(0deg); }
+            30% { transform: scale(1.1) rotate(0deg); }
+            40% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* --- FOTOS DE GATITOS Y STITCH ALREDEDOR DE LA FLOR --- */
+        .cuties {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cutie {
+            position: absolute;
+            background: #fff;
+            padding: 8px 8px 22px;
+            border-radius: 4px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+            text-align: center;
+            font-size: 0.72rem;
+            color: #7b5e3b;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            animation: cutieFloat 4s infinite ease-in-out;
+        }
+
+        .cutie img {
+            width: 110px;
+            height: 132px;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+        }
+
+        .cutie span {
+            display: block;
+            margin-top: 6px;
+        }
+
+        @keyframes cutieFloat {
+            0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+            50% { transform: translateY(-12px) rotate(var(--r, 0deg)); }
+        }
+
+        @media (max-width: 700px) {
+            .cutie {
+                padding: 6px 6px 16px;
+                font-size: 0.6rem;
+            }
+            .cutie img {
+                width: 84px;
+                height: 100px;
+            }
+        }
+
+        /* --- CARTA CON FUEGOS ARTIFICIALES --- */
+        .letter-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(8, 6, 22, 0.88);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .letter-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #fireworks-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .letter-card {
+            position: relative;
+            z-index: 3;
+            max-width: 520px;
+            width: 90%;
+            background: linear-gradient(160deg, #fffdf0, #fff8e1 60%, #ffe9c0);
+            border: 1px solid #e8c888;
+            border-radius: 14px;
+            padding: 34px 36px 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.55), inset 0 0 40px rgba(255,240,200,0.6);
+            transform: rotate(-2deg) scale(0.85);
+            transition: transform 0.5s ease;
+            text-align: center;
+        }
+
+        .letter-overlay.show .letter-card {
+            transform: rotate(-2deg) scale(1);
+        }
+
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.3rem;
+            color: #c0392b;
+            margin-bottom: 14px;
+        }
+
+        .letter-body {
+            font-size: 1rem;
+            color: #4e342e;
+            line-height: 1.75;
+            text-align: justify;
+        }
+
+        .letter-sign {
+            margin-top: 18px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #d48806;
+        }
+
+        .letter-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: rgba(0,0,0,0.08);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+            cursor: pointer;
+            color: #795548;
+            z-index: 4;
+            line-height: 1;
+        }
+
+        .letter-close:hover {
+            background: rgba(0,0,0,0.18);
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(212, 136, 6, 0.25);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            border: 2px dashed #ffca28;
+            backdrop-filter: blur(5px);
+            margin-top: 15px;
+        }
+
+        #message-text {
+            font-size: 1.2rem;
+            color: #5d4037;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-note {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #8d6e63;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* --- AJUSTES PARA CELULAR (RESPONSIVE) --- */
+        .musica-oculta {
+            position: fixed;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .musica-oculta iframe {
+            border: none;
+        }
+        @media (max-width: 700px) {
+            body {
+                overflow-y: auto;
+            }
+
+            .decoration-side {
+                display: none;
+            }
+
+            .galaxy-title {
+                font-size: 2.3rem;
+            }
+
+            .galaxy-btn {
+                font-size: 1rem;
+                padding: 12px 22px;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            p.instruction {
+                font-size: 0.9rem;
+                padding: 7px 14px;
+            }
+
+            .sunflower-container {
+                height: 385px;
+            }
+
+            .sunflower-wrapper {
+                transform: scale(0.78);
+                transform-origin: top center;
+            }
+
+            .stem-container {
+                top: 200px;
+                transform: translateX(-50%) scale(0.78);
+                transform-origin: top center;
+            }
+
+            .message-box {
+                padding: 16px 20px;
+            }
+
+            #message-text {
+                font-size: 1rem;
+            }
+
+            .footer-note {
+                font-size: 0.8rem;
+            }
+
+            .letter-body {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .galaxy-title {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .sunflower-container {
+                height: 350px;
+            }
+
+            .sunflower-wrapper {
+                transform: scale(0.7);
+                transform-origin: top center;
+            }
+
+            .stem-container {
+                top: 185px;
+                transform: translateX(-50%) scale(0.7);
+                transform-origin: top center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TRANSICIÓN: ESCENA GALÁCTICA -->
+    <div id="galaxy-overlay">
+        <div class="galaxy-core"></div>
+        <div class="galaxy-content">
+            <h2 class="galaxy-title">Entre millones de galaxias y estrellas...</h2>
+            <button class="galaxy-btn" onclick="entrarAlUniverso()">Entrar a nuestro universo 🌌✨</button>
+        </div>
+    </div>
+
+    <!-- ADORNOS LATERALES -->
+    <div class="decoration-side left-side">
+        <span class="side-heart" style="animation-delay: 0s;">💖</span>
+        <span class="side-heart" style="animation-delay: 1s;">💛</span>
+        <span class="side-heart" style="animation-delay: 0.5s;">✨</span>
+        <span class="side-heart" style="animation-delay: 1.5s;">💖</span>
+    </div>
+    
+    <div class="decoration-side right-side">
+        <span class="side-heart" style="animation-delay: 0.7s;">💛</span>
+        <span class="side-heart" style="animation-delay: 0.2s;">💖</span>
+        <span class="side-heart" style="animation-delay: 1.2s;">✨</span>
+        <span class="side-heart" style="animation-delay: 0.9s;">💛</span>
+    </div>
+
+    <!-- CORAZONES FLOTANTES -->
+    <div class="floating-heart" style="left: 15%; animation-duration: 7s; animation-delay: 0s;">❤️</div>
+    <div class="floating-heart" style="left: 30%; animation-duration: 9s; animation-delay: 2s;">💛</div>
+    <div class="floating-heart" style="left: 70%; animation-duration: 6s; animation-delay: 1s;">💖</div>
+    <div class="floating-heart" style="left: 85%; animation-duration: 8s; animation-delay: 3s;">🤍</div>
+
+    <!-- DESTELLOS -->
+    <div class="sparkle" style="top: 10%; left: 18%; width: 12px; height: 12px; animation-delay: 0s;"></div>
+    <div class="sparkle" style="top: 20%; right: 22%; width: 9px; height: 9px; animation-delay: 1s;"></div>
+    <div class="sparkle" style="bottom: 15%; left: 25%; width: 10px; height: 10px; animation-delay: 2s;"></div>
+    <div class="sparkle" style="bottom: 25%; right: 18%; width: 14px; height: 14px; animation-delay: 1.5s;"></div>
+
+    <div class="container">
+        <h1>Para el amor de mi vida 🌻</h1>
+        <p class="instruction">Toca cada pétalo del girasol para descubrir cuánto te amo</p>
+
+        <!-- Contenedor general del Girasol + Tallo -->
+        <div class="sunflower-container">
+            <div class="sunflower-wrapper" id="sunflower" onclick="arrancarPetalo()">
+                <div class="sepal"></div>
+                <div class="center-disc"></div>
+            </div>
+            <div class="stem-container">
+                <div class="leaf-left"></div>
+                <div class="leaf-right"></div>
+                <div class="stem"></div>
+            </div>
+        </div>
+
+        <!-- Caja de mensajes -->
+        <div class="message-box">
+            <p id="message-text">Haz clic en el girasol para arrancar un pétalo y leer tu mensaje ✨</p>
+        </div>
+
+        <div class="footer-note">Hecho con todo mi amor para este 21 de septiembre 💛</div>
+    </div>
+
+    <!-- CORAZÓN QUE ABRE LA CARTA -->
+    <div class="heart-btn" id="heart-btn" onclick="abrirCarta()">💖</div>
+
+    <!-- CARTA CON FUEGOS ARTIFICIALES DE FONDO -->
+    <div class="letter-overlay" id="letter-overlay" onclick="cerrarCarta(event)">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="letter-card" onclick="event.stopPropagation()">
+            <button class="letter-close" onclick="cerrarCarta(event)">✕</button>
+            <h3 class="letter-title">Mi amor 🤍</h3>
+            <p class="letter-body">
+                Hoy quiero que entienda que nunca senti algo tan bello, a logrado sacar a la superficie
+                un nuevo yo que no sabia que poda existir me alregro con cualquier cosita que venga de usted 
+                y a pesar de que no sea el mejor chico o novio que exista estare ahi en las buenas o en las 
+                malas por usted, muchas gracias por darme la oportunidad de ser su ser amado are lo que este 
+                a mi alcance para que usted sea muy feliz te amo mucho mili
+
+            </p>
+            <p class="letter-body">
+                Eres mi luz en los días grises, mi sueño hecho realidad y mi mejor razón
+                para sonreír cada mañana. Pase lo que pase, siempre quiero estar a tu lado.
+            </p>
+            <p class="letter-sign">Te amo con toda el alma 🌻</p>
+        </div>
+    </div>
+
+    <!-- FOTOS DE GATITOS Y STITCH ALREDEDOR DE LA FLOR -->
+    <div class="cuties">
+        <div class="cutie" style="top: 9%; left: 7%; --r: -10deg; animation-delay: 0s;">
+            <img src="https://cataas.com/cat?width=240&height=300&v=1" alt="gatito" onerror="this.parentNode.style.display='none'">
+            <span>gatito 💕</span>
+        </div>
+        <div class="cutie" style="top: 14%; right: 6%; --r: 9deg; animation-delay: 0.7s;">
+            <img src="https://pngimg.com/uploads/stitch/stitch_PNG30.png" alt="stitch" onerror="this.parentNode.style.display='none'">
+            <span>stitch 🥰</span>
+        </div>
+        <div class="cutie" style="top: 40%; left: 3%; --r: 7deg; animation-delay: 1.2s;">
+            <img src="https://cataas.com/cat?width=300&height=280&v=2" alt="gatito" onerror="this.parentNode.style.display='none'">
+            <span>gatito tierno 🐾</span>
+        </div>
+        <div class="cutie" style="top: 46%; right: 4%; --r: -8deg; animation-delay: 0.4s;">
+            <img src="https://pngimg.com/uploads/stitch/stitch_PNG12.png" alt="stitch" onerror="this.parentNode.style.display='none'">
+            <span>stitch 💙</span>
+        </div>
+        <div class="cutie" style="bottom: 14%; left: 9%; --r: -6deg; animation-delay: 1.5s;">
+            <img src="https://cataas.com/cat/white?width=240&height=300&v=3" alt="gatito" onerror="this.parentNode.style.display='none'">
+            <span>gatito 🤍</span>
+        </div>
+        <div class="cutie" style="bottom: 18%; right: 9%; --r: 11deg; animation-delay: 0.9s;">
+            <img src="https://cataas.com/cat/orange?height=300&v=4" alt="gatito" onerror="this.parentNode.style.display='none'">
+            <span>gatito 🧡</span>
+        </div>
+    </div>
+
+    <!-- REPRODUCTOR DE MÚSICA OCULTO -->
+    <div id="musica-contenedor" class="musica-oculta"></div>
+
+    <script>
+        // Generar estrellas dinámicas para el fondo galáctico
+        const galaxyOverlay = document.getElementById('galaxy-overlay');
+        const starCount = 80;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            galaxyOverlay.appendChild(star);
+        }
+
+        // Función para ocultar la galaxia con transición
+        function entrarAlUniverso() {
+            galaxyOverlay.classList.add('hidden');
+            iniciarMusica();
+        }
+
+        // --- MÚSICA DE FONDO ---
+        // IMPORTANTE: los navegadores no permiten reproducir automáticamente
+        // un video de YouTube con sonido sin una interacción del usuario.
+        // Para que la música suene directamente al abrir la página, coloca
+        // un archivo "musica.mp3" junto a este HTML.
+        const musica = new Audio('musica.mp3');
+        musica.loop = true;
+        musica.volume = 0.55;
+
+        function iniciarMusica() {
+            musica.play().catch(() => {
+                // Si el navegador bloquea el autoplay, se reintentará
+                // con la primera interacción del usuario.
+            });
+        }
+
+        // Reintento para navegadores que bloquean autoplay.
+        document.addEventListener('click', () => {
+            if (musica.paused) musica.play().catch(() => {});
+        }, { once: false });
+
+        // Lógica del Girasol
+        const mensajes = [
+            "No tengo una flor de bolsillo para darte hoy, pero sí un corazón entero que te pertenece.",
+            "Eres la luz más bonita que ilumina toda mi vida, incluso en los días nublados.",
+            "Me encantas de todas las formas posibles, nunca lo olvides.",
+            "Haces que cada día valga la pena con solo una de tus sonrisas.",
+            "Aunque a veces no pueda darte lujos, mi amor por ti es gigante y sincero.",
+            "Gracias por estar siempre a mi lado y tenerme paciencia.",
+            "Eres mi casualidad más hermosa y minúscula certeza para el futuro.",
+            "Tu risa es mi sonido favorito en todo el mundo.",
+            "Contigo aprendí lo bonito que es querer a alguien con el alma.",
+            "Te amo hoy, mañana y todos los días de mi vida 🤍"
+        ];
+
+        const totalPetalos = 14;
+        const sunflower = document.getElementById('sunflower');
+        const messageText = document.getElementById('message-text');
+        
+        let petalosDisponibles = [];
+
+        function crearPetalos() {
+            const viejos = sunflower.querySelectorAll('.petal');
+            viejos.forEach(p => p.remove());
+
+            petalosDisponibles = [];
+
+            messageText.style.opacity = 0;
+            setTimeout(() => {
+                messageText.innerText = "Haz clic en el girasol para arrancar un pétalo y leer tu mensaje ✨";
+                messageText.style.opacity = 1;
+            }, 200);
+
+            for (let i = 0; i < totalPetalos; i++) {
+                const angle = (360 / totalPetalos) * i;
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.setProperty('--rot', `${angle}deg`);
+                petal.style.transform = `rotate(${angle}deg) translateY(-60px)`;
+                
+                sunflower.appendChild(petal);
+                petalosDisponibles.push(petal);
+            }
+        }
+
+        crearPetalos();
+
+        function arrancarPetalo() {
+            if (petalosDisponibles.length > 0) {
+                const randomIndex = Math.floor(Math.random() * petalosDisponibles.length);
+                const petalToFall = petalosDisponibles[randomIndex];
+
+                petalToFall.classList.add('falling');
+                petalosDisponibles.splice(randomIndex, 1);
+
+                const randomMsg = mensajes[Math.floor(Math.random() * mensajes.length)];
+                messageText.style.opacity = 0;
+                setTimeout(() => {
+                    messageText.innerText = randomMsg;
+                    messageText.style.opacity = 1;
+                }, 200);
+
+                if (petalosDisponibles.length === 0) {
+                    setTimeout(() => {
+                        messageText.innerText = "¡Se terminaron los pétalos, pero mi amor sigue creciendo! 💛 Aprieta el corazón arriba a la derecha para abrir tu carta...";
+                        document.getElementById('heart-btn').classList.add('visible');
+                    }, 800);
+                }
+            }
+        }
+
+        // --- CORAZÓN + CARTA CON FUEGOS ARTIFICIALES ---
+        const fireworksCanvas = document.getElementById('fireworks-canvas');
+        const ctx = fireworksCanvas.getContext('2d');
+        let sparks = [];
+        let animationId = null;
+        let fireworksTimer = null;
+
+        function resizeCanvas() {
+            fireworksCanvas.width = fireworksCanvas.clientWidth;
+            fireworksCanvas.height = fireworksCanvas.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function crearExplosion() {
+            const w = fireworksCanvas.width;
+            const h = fireworksCanvas.height;
+            if (!w || !h) return;
+
+            const x = w * (0.15 + Math.random() * 0.7);
+            const y = h * (0.08 + Math.random() * 0.35);
+            const color = 'hsl(' + Math.floor(Math.random() * 360) + ', 100%, ' + (55 + Math.random() * 20) + '%)';
+            const particulas = 70 + Math.floor(Math.random() * 40);
+
+            for (let j = 0; j < particulas; j++) {
+                const angulo = (Math.PI * 2 * j) / particulas + Math.random() * 0.2;
+                const velocidad = Math.random() * 5 + 1.5;
+                sparks.push({
+                    x, y,
+                    vx: Math.cos(angulo) * velocidad,
+                    vy: Math.sin(angulo) * velocidad,
+                    life: 1,
+                    decay: Math.random() * 1.1 + 0.55,
+                    color,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function dibujarFuegos() {
+            ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            ctx.globalCompositeOperation = 'lighter';
+
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const s = sparks[i];
+                s.vy += 0.06;
+                s.x += s.vx;
+                s.y += s.vy;
+                s.life -= 0.008 * s.decay;
+                if (s.life <= 0 || s.y > fireworksCanvas.height + 40) {
+                    sparks.splice(i, 1);
+                    continue;
+                }
+                ctx.globalAlpha = Math.max(0, s.life);
+                ctx.fillStyle = s.color;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.globalAlpha = 1;
+            ctx.globalCompositeOperation = 'source-over';
+            animationId = requestAnimationFrame(dibujarFuegos);
+        }
+
+        function abrirCarta() {
+            document.getElementById('letter-overlay').classList.add('show');
+            resizeCanvas();
+            if (!fireworksTimer) fireworksTimer = setInterval(crearExplosion, 550);
+            crearExplosion();
+            if (!animationId) dibujarFuegos();
+        }
+
+        function cerrarCarta(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('letter-overlay').classList.remove('show');
+
+            if (fireworksTimer) { clearInterval(fireworksTimer); fireworksTimer = null; }
+            if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+            sparks = [];
+            ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+
+            document.getElementById('heart-btn').classList.remove('visible');
+            setTimeout(crearPetalos, 600);
+        }
+    </script>
+</body>
+</html>
